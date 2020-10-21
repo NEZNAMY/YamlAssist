@@ -24,19 +24,19 @@
  
  ```
  public void onEnable() {
-		getDataFolder().mkdirs();
-		File f = new File(getDataFolder(), "config.yml");
-		try {
-			YamlConfiguration config = new YamlConfiguration();
-			config.load(f);
-		} catch (InvalidConfigurationException e) {
-			if (e.getCause() instanceof YAMLException) {
-				YAMLException yaml = (YAMLException) e.getCause();
-				List<String> suggestions = YamlAssist.getSuggestions(f, yaml);
-				//print suggestions into console
-			}
-		} catch (Exception e) {
-			e.printStackTrace();
+	getDataFolder().mkdirs();
+	File f = new File(getDataFolder(), "config.yml");
+	try {
+		YamlConfiguration config = new YamlConfiguration();
+		config.load(f);
+	} catch (InvalidConfigurationException e) {
+		if (e.getCause() instanceof YAMLException) {
+			YAMLException yaml = (YAMLException) e.getCause();
+			List<String> suggestions = YamlAssist.getSuggestions(f, yaml);
+			//print suggestions into console
 		}
+	} catch (Exception e) {
+		e.printStackTrace();
 	}
+}
  ```
