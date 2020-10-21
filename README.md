@@ -23,20 +23,19 @@
  # Usage example
  
  ```
- public void onEnable() {
-	getDataFolder().mkdirs();
-	File f = new File(getDataFolder(), "config.yml");
-	try {
-		YamlConfiguration config = new YamlConfiguration();
-		config.load(f);
-	} catch (InvalidConfigurationException e) {
-		if (e.getCause() instanceof YAMLException) {
-			YAMLException yaml = (YAMLException) e.getCause();
-			List<String> suggestions = YamlAssist.getSuggestions(f, yaml);
-			//print suggestions into console
+	public void onEnablee() {
+		getDataFolder().mkdirs();
+		File f = new File(getDataFolder(), "config.yml");
+		try {
+			YamlConfiguration config = new YamlConfiguration();
+			config.load(f);
+		} catch (Exception e) {
+			e.printStackTrace();
+			if (e.getCause() instanceof YAMLException) {
+				YAMLException yaml = (YAMLException) e.getCause();
+				List<String> suggestions = YamlAssist.getSuggestions(f, yaml);
+				//print suggestions into console
+			}
 		}
-	} catch (Exception e) {
-		e.printStackTrace();
 	}
-}
  ```
