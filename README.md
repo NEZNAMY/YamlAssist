@@ -23,7 +23,7 @@
  # Usage example
  
  ```
-	public void onEnablee() {
+	public void onEnable() {
 		getDataFolder().mkdirs();
 		File f = new File(getDataFolder(), "config.yml");
 		try {
