@@ -1,6 +1,6 @@
 # YamlAssist
  
- A library that converts snakeyaml's error messages into much more user-friendly suggestions how to fix yaml syntax.
+ A library that detects syntax errors in a yaml file based on snakeyaml's error message and file's content and transforms them into user-friendly messages.
 # Maven Repository
 ```
 <repositories>
