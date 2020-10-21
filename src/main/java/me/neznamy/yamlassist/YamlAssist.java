@@ -1,5 +1,10 @@
 package me.neznamy.yamlassist;
 
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.InputStreamReader;
+import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -44,10 +49,10 @@ public class YamlAssist {
 	 * @param fileLines - lines of file
 	 * @return List of fix suggestions
 	 */
-	public static List<String> getSuggestions(YAMLException exception, List<String> fileLines) {
+	public static List<String> getSuggestions(File file, YAMLException exception) {
 		List<String> suggestions = new ArrayList<String>();
 		for (SyntaxError possibleError : registeredSyntaxErrors.values()) {
-			suggestions.addAll(possibleError.getSuggestions(exception, fileLines));
+			suggestions.addAll(possibleError.getSuggestions(exception, readAllLines(file)));
 		}
 		return suggestions;
 	}
@@ -58,5 +63,24 @@ public class YamlAssist {
 	 */
 	public static void registerSyntaxError(SyntaxError error) {
 		registeredSyntaxErrors.put(error.getClass(), error);
+	}
+	
+	/**
+	 * Reads all lines in file and returns them as List
+	 * @return list of lines in file
+	 */
+	private static List<String> readAllLines(File file) {
+		List<String> list = new ArrayList<String>();
+		try {
+			BufferedReader br = new BufferedReader(new InputStreamReader(new FileInputStream(file), StandardCharsets.UTF_8));
+			String line;
+			while ((line = br.readLine()) != null) {
+				list.add(line);
+			}
+			br.close();
+		} catch (Exception ex) {
+			ex.printStackTrace();
+		}
+		return list;
 	}
 }
