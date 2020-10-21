@@ -4,19 +4,19 @@
 # Maven Repository
 ```
 <repositories>
-	<repository>
-		<id>jitpack.io</id>
-		<url>https://jitpack.io</url>
-	</repository>
+  <repository>
+    <id>jitpack.io</id>
+    <url>https://jitpack.io</url>
+  </repository>
 </repositories>
 
 <dependencies>
-	<!-- YamlAssist -->
-	<dependency>
-		<groupId>com.github.NEZNAMY</groupId>
-		<artifactId>YamlAssist</artifactId>
-		<version>1.0.0</version>
-	</dependency>
+  <!-- YamlAssist -->
+  <dependency>
+    <groupId>com.github.NEZNAMY</groupId>
+    <artifactId>YamlAssist</artifactId>
+    <version>1.0.0</version>
+  </dependency>
 </dependencies>
  ```
  
