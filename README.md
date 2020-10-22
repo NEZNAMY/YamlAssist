@@ -25,15 +25,14 @@
  ```
 	public void onEnable() {
 		getDataFolder().mkdirs();
-		File f = new File(getDataFolder(), "config.yml");
+		File file = new File(getDataFolder(), "config.yml");
 		try {
 			YamlConfiguration config = new YamlConfiguration();
-			config.load(f);
+			config.load(file);
 		} catch (Exception e) {
 			e.printStackTrace();
 			if (e.getCause() instanceof YAMLException) {
-				YAMLException yaml = (YAMLException) e.getCause();
-				List<String> suggestions = YamlAssist.getSuggestions(f, yaml);
+				List<String> suggestions = YamlAssist.getSuggestions(file);
 				//print suggestions into console
 			}
 		}
