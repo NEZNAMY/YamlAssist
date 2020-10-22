@@ -15,19 +15,29 @@ public class MissingSpaceBeforeValue extends SyntaxError {
 	@Override
 	public List<String> getSuggestions(YAMLException exception, List<String> fileLines) {
 		List<String> suggestions = new ArrayList<String>();
-		if (exception.getMessage().contains("could not find expected ':'")) {
-			int line = Integer.parseInt(exception.getMessage().split(", line ")[1].split(",")[0]);
-			String text = fileLines.get(line-1).split("#")[0];
-			while (text.startsWith(" ")) text = text.substring(1, text.length());
-			if (text.startsWith("-") && !text.startsWith("- ")) {
-				suggestions.add("Add a space after the \"-\" at line " + line + ".");
-				return suggestions;
+		for (int lineNumber=1; lineNumber <= fileLines.size(); lineNumber++) {
+			String line = fileLines.get(lineNumber-1);
+			
+			//removing indent
+			while (line.startsWith(" ")) line = line.substring(1, line.length());
+			
+			//member of list
+			if (line.startsWith("-") && !line.startsWith("- ")) {
+				suggestions.add("Add a space after the \"-\" at line " + lineNumber + ".");
+				continue;
 			}
-			if (text.contains(":") && !text.contains(": ") && !text.endsWith(":")) {
-				suggestions.add("Add a space after the \":\" at line " + line + ".");
-				return suggestions;
+			
+			//simple values
+			if (line.contains(":") && !line.contains(": ") && !line.endsWith(":")) {
+				suggestions.add("Add a space after the \":\" at line " + lineNumber + ".");
+				continue;
 			}
-			suggestions.add("Remove line " + line + " or add ':' at the end");
+			
+			//completely invalid line
+			if (!line.contains(":") && !line.contains("-")) {
+				suggestions.add("Remove line " + lineNumber + " or add ':' at the end");
+				continue;
+			}
 		}
 		return suggestions;
 	}
