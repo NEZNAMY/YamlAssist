@@ -12,21 +12,29 @@ import me.neznamy.yamlassist.SyntaxError;
  */
 public class QuoteWrapRequired extends SyntaxError {
 
+	//list of characters that cannot start a value (quotes are required)
+	private char[] invalidStartCharacters = {'\0', '%', '-', '.', '[', '{', ']', '}', ',', '?', ':', '*', '&', '!', '|', '>'};
+			
 	@Override
 	public List<String> getSuggestions(YAMLException exception, List<String> fileLines) {
 		List<String> suggestions = new ArrayList<String>();
-		if (exception.getMessage().contains("expected alphabetic or numeric character") ||
-			exception.getMessage().contains("Do not use %")) {
-			int line = Integer.parseInt(exception.getMessage().split(", line ")[1].split(",")[0]);
-			String value = getValue(fileLines.get(line-1));
-			//avoiding false positive caused by missing ending quote in previous line
-			if (!value.startsWith("\"") && !value.startsWith("'")) {
-				suggestions.add("Wrap value in line " + line + " into quotes.");
+		for (int lineNumber = 1; lineNumber <= fileLines.size(); lineNumber++) {
+			String line = fileLines.get(lineNumber-1);
+			String value = getValue(line);
+			for (char invalid : invalidStartCharacters) {
+				if (value.startsWith(invalid+"")) {
+					suggestions.add("Wrap value in line " + lineNumber + " into quotes.");
+				}
 			}
 		}
 		return suggestions;
 	}
 	
+	/**
+	 * Returns map value in the specified line of text
+	 * @param line - line of configuration file
+	 * @return map value of the line
+	 */
 	private String getValue(String line) {
 		if (line.startsWith("- ")) {
 			return line.substring(line.split("- ")[0].length()+2);
