@@ -18,10 +18,11 @@ public class MissingSpaceBeforeValue extends SyntaxError {
 		for (int lineNumber=1; lineNumber <= fileLines.size(); lineNumber++) {
 			String line = fileLines.get(lineNumber-1);
 			
-			if (line.startsWith("#") || line.isEmpty()) continue; //empty lines
-			
 			//removing indent
 			while (line.startsWith(" ")) line = line.substring(1, line.length());
+			
+			//skipping empty lines
+			if (line.startsWith("#") || line.isEmpty()) continue;
 			
 			//member of list
 			if (line.startsWith("-") && !line.startsWith("- ")) {
