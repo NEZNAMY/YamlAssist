@@ -20,6 +20,13 @@ public class QuoteWrapRequired extends SyntaxError {
 		List<String> suggestions = new ArrayList<String>();
 		for (int lineNumber = 1; lineNumber <= fileLines.size(); lineNumber++) {
 			String line = fileLines.get(lineNumber-1);
+			
+			//removing indent
+			while (line.startsWith(" ")) line = line.substring(1, line.length());
+			
+			//skipping empty lines
+			if (line.startsWith("#") || line.isEmpty()) continue;
+			
 			String value = getValue(line);
 			for (char invalid : invalidStartCharacters) {
 				if (value.startsWith(invalid+"")) {
