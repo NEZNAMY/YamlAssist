@@ -13,7 +13,7 @@ import me.neznamy.yamlassist.SyntaxError;
 public class UnknownEscape extends SyntaxError {
 
 	//list of valid characters to be escaped
-	private char[] validEscapedCharacters = new char[] {'\\', 'b', 'f', 'n', 'r', 't'};
+	private char[] validEscapedCharacters = new char[] {'\\', 'b', 'f', 'n', 'r', 't', 'u'};
 	
 	@Override
 	public List<String> getSuggestions(YAMLException exception, List<String> fileLines) {
