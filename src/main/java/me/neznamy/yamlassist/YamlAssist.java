@@ -5,7 +5,7 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStreamReader;
-import java.nio.charset.StandardCharsets;
+import java.nio.charset.Charset;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -57,7 +57,7 @@ public class YamlAssist {
 			if (!file.exists()) throw new IllegalStateException("File does not exist");
 			FileInputStream input = new FileInputStream(file);
 			try {
-				new Yaml().load(new InputStreamReader(input, StandardCharsets.UTF_8));
+				new Yaml().load(new InputStreamReader(input, Charset.defaultCharset()));
 			} catch (YAMLException exception) {
 				for (SyntaxError possibleError : registeredSyntaxErrors.values()) {
 					suggestions.addAll(possibleError.getSuggestions(exception, readAllLines(file)));
@@ -85,7 +85,7 @@ public class YamlAssist {
 	 */
 	private static List<String> readAllLines(File file) throws IOException {
 		List<String> list = new ArrayList<String>();
-		BufferedReader br = new BufferedReader(new InputStreamReader(new FileInputStream(file), StandardCharsets.UTF_8));
+		BufferedReader br = new BufferedReader(new InputStreamReader(new FileInputStream(file), Charset.defaultCharset()));
 		String line;
 		while ((line = br.readLine()) != null) {
 			list.add(line);
