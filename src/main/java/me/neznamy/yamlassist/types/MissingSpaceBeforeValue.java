@@ -31,7 +31,7 @@ public class MissingSpaceBeforeValue extends SyntaxError {
 			}
 			
 			//simple values
-			if (line.contains(":") && !line.contains(": ") && !line.endsWith(":")) {
+			if (!line.startsWith("- ") && line.contains(":") && !line.contains(": ") && !line.endsWith(":")) {
 				suggestions.add("Add a space after the \":\" at line " + lineNumber + ".");
 				continue;
 			}
