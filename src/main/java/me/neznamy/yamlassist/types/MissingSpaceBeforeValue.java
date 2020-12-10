@@ -16,10 +16,7 @@ public class MissingSpaceBeforeValue extends SyntaxError {
 	public List<String> getSuggestions(YAMLException exception, List<String> fileLines) {
 		List<String> suggestions = new ArrayList<String>();
 		for (int lineNumber=1; lineNumber <= fileLines.size(); lineNumber++) {
-			String line = fileLines.get(lineNumber-1);
-			
-			//removing indent
-			while (line.startsWith(" ")) line = line.substring(1, line.length());
+			String line = removeIndent(fileLines.get(lineNumber-1));
 			
 			//skipping empty lines
 			if (line.startsWith("#") || line.isEmpty()) continue;

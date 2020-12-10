@@ -71,16 +71,4 @@ public class MissingQuote extends SyntaxError {
 		}
 		return null;
 	}
-
-	/**
-	 * Removes spaces at the beginning and end and returns it
-	 * @param text - text to alter
-	 * @return the altered text
-	 */
-	private String removeIndent(String text) {
-		String result = text;
-		while (result.startsWith(" ")) result = result.substring(1);
-		while (result.endsWith(" ")) result = result.substring(0, result.length()-1);
-		return result;
-	}
 }
