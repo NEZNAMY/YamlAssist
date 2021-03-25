@@ -15,7 +15,9 @@ public class DoubleMapping extends SyntaxError {
 	@Override
 	public List<String> getSuggestions(YAMLException exception, List<String> fileLines) {
 		List<String> suggestions = new ArrayList<String>();
-		int line = Integer.parseInt(exception.getMessage().split(", line ")[1].split(",")[0]);
+		String[] arr = exception.getMessage().split(", line ");
+		if (arr.length == 1) return suggestions;
+		int line = Integer.parseInt(arr[1].split(",")[0]);
 		String text = fileLines.get(line-1).split("#")[0];
 		if (exception.getMessage().contains("mapping values are not allowed here") && text.endsWith(":")) {
 			suggestions.add("Remove the last : from line " + line + ".");
