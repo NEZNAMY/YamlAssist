@@ -11,6 +11,7 @@
 			<groupId>org.yaml</groupId>
 			<artifactId>snakeyaml</artifactId>
 			<version>1.27</version>
+			<scope>provided</scope>
 		</dependency>
 	</dependencies>
 </project>
