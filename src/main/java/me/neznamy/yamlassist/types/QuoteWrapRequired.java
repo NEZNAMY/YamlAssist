@@ -26,6 +26,7 @@ public class QuoteWrapRequired extends SyntaxError {
 			if (line.startsWith("#") || line.isEmpty()) continue;
 			
 			String value = getValue(line);
+			if (value.equals("{}") || value.equals("[]")) continue;
 			for (char invalid : invalidStartCharacters) {
 				if (value.startsWith(invalid+"")) {
 					suggestions.add("Wrap value in line " + lineNumber + " into quotes.");
