@@ -42,7 +42,7 @@ public class BadIndentation extends SyntaxError {
 			}
 			prevLine = prevLine.split("#")[0];
 			int prevLineIndent = getIndentCount(prevLine);
-			if (prevLine.replace(" ", "").endsWith(":")) {
+			if (removeSpaces(prevLine).endsWith(":")) {
 				//expecting 2 more spaces or same or 2k less (k = 1,2,..)
 				if (currentLineIndent - prevLineIndent > 2) {
 					suggestions.add("Remove " + (currentLineIndent-prevLineIndent-2) + " space(s) from line " + (lineNumber+1));
@@ -82,7 +82,12 @@ public class BadIndentation extends SyntaxError {
 		return suggestions;
 	}
 	
-
+	private String removeSpaces(String line) {
+		String fixed = line;
+		while (fixed.startsWith(" ") || fixed.startsWith("\t")) fixed = fixed.substring(1);
+		while (fixed.endsWith(" ") || fixed.endsWith("\t")) fixed = fixed.substring(0, fixed.length()-1);
+		return fixed;
+	}
 	
 	/**
 	 * Return true if this line appears to be a comment only, false if not
