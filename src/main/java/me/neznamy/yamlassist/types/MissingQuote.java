@@ -16,19 +16,10 @@ public class MissingQuote extends SyntaxError {
 	@Override
 	public List<String> getSuggestions(YAMLException exception, List<String> fileLines) {
 		List<String> suggestions = new ArrayList<String>();
-		for (int line = 1; line <= fileLines.size(); line++) {
-			String text = fileLines.get(line-1);
+		for (int lineNumber = 1; lineNumber <= fileLines.size(); lineNumber++) {
+			String text = fileLines.get(lineNumber-1);
 			if (!YamlAssist.getError(InvalidLine.class).isLineValid(text)) continue;
-			if (text.startsWith("#") || text.replace(" ", "").length() == 0) continue;
-			text = removeIndent(text);
-			String suggestion = null;
-			if (text.startsWith("- ")) {
-				text = text.substring(text.split("- ")[0].length()+2);
-				suggestion = checkElement(text, line);
-			} else if (text.contains(": ")) {
-				text = text.substring(text.split(": ")[0].length()+2);
-				suggestion = checkElement(text, line);
-			}
+			String suggestion = checkElement(getValue(text), lineNumber);
 			if (suggestion != null) suggestions.add(suggestion);
 		}
 		return suggestions;

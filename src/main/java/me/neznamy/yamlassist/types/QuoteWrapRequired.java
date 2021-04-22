@@ -35,19 +35,4 @@ public class QuoteWrapRequired extends SyntaxError {
 		}
 		return suggestions;
 	}
-	
-	/**
-	 * Returns map value in the specified line of text
-	 * @param line - line of configuration file
-	 * @return map value of the line
-	 */
-	private String getValue(String line) {
-		if (line.startsWith("- ")) {
-			return line.substring(line.split("- ")[0].length()+2);
-		} else if (line.contains(": ")) {
-			return line.substring(line.split(": ")[0].length()+2);
-		}
-		//should not happen
-		return line;
-	}
 }

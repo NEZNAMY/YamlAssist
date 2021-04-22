@@ -50,4 +50,42 @@ public abstract class SyntaxError {
 		}
 		return i;
 	}
+	
+	 /**
+	 * Returns map value in the specified line of text
+	 * @param line - line of configuration file
+	 * @return map value of the line
+	 */
+	protected String getValue(String line) {
+		String value = removeIndent(line);
+		if (value.startsWith("- ")) {
+			value = value.substring(2);
+		} else if (value.contains(": ")) {
+			value = value.substring(value.split(": ")[0].length()+2);
+		}
+		//properly ignoring comments at the end
+		StringBuilder sb = new StringBuilder();
+		boolean insideQuotes = false;
+		char quoteChar = 0;
+		for (int i=0; i < value.length(); i++) {
+			char c = value.charAt(i);
+			if (c == '"' || c == '\'') {
+				if (i == 0) {
+					insideQuotes = true;
+					quoteChar = c;
+				} else {
+					if (quoteChar == c) insideQuotes = false;
+				}
+			}
+			if (c == '#') {
+				if (!insideQuotes && (quoteChar != 0 || (sb.length() > 0 && sb.charAt(sb.length()-1) == ' '))) {
+					while (sb.length() > 0 && sb.charAt(sb.length()-1) == ' ') sb.setLength(sb.length()-1);
+					return sb.toString();
+				}
+			}
+			sb.append(c);
+		}
+		while (sb.length() > 0 && sb.charAt(sb.length()-1) == ' ') sb.setLength(sb.length()-1);
+		return sb.toString();
+	}
 }
