@@ -40,15 +40,20 @@ public abstract class SyntaxError {
 	 */
 	protected int getIndentCount(String line) {
 		if (line.split("#")[0].replace(" ", "").length() == 0) return 0;
-		int i = 0;
-		while (line.charAt(i) == ' ') {
-			i++;
-		}
+		int index = 0;
+		int spaces = 0;
 		//not letting tab indent give invalid suggestions
-		while (line.charAt(i) == '\t') {
-			i += 4;
+		while (line.charAt(index) == ' ' || line.charAt(index) == '\t') {
+			if (line.charAt(index) == ' ') {
+				index++;
+				spaces++;
+			} else {
+				index++;
+				spaces += 4;
+			}
+			
 		}
-		return i;
+		return spaces;
 	}
 	
 	 /**
