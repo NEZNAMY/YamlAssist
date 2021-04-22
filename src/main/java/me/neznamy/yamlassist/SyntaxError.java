@@ -63,12 +63,20 @@ public abstract class SyntaxError {
 		} else if (value.contains(": ")) {
 			value = value.substring(value.split(": ")[0].length()+2);
 		}
-		//properly ignoring comments at the end
+		return removeEndLineComments(value);
+	}
+	
+	/**
+	 * Removes comments from the line if present
+	 * @param line - line to remove comment from
+	 * @return line without end line comment
+	 */
+	protected String removeEndLineComments(String line) {
 		StringBuilder sb = new StringBuilder();
 		boolean insideQuotes = false;
 		char quoteChar = 0;
-		for (int i=0; i < value.length(); i++) {
-			char c = value.charAt(i);
+		for (int i=0; i < line.length(); i++) {
+			char c = line.charAt(i);
 			if (c == '"' || c == '\'') {
 				if (i == 0) {
 					insideQuotes = true;

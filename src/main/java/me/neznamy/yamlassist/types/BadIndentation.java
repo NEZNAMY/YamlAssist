@@ -27,12 +27,11 @@ public class BadIndentation extends SyntaxError {
 		for (int lineNumber = 0; lineNumber < lines.size(); lineNumber++) {
 			String line = lines.get(lineNumber);
 			line = line.split("#")[0];
-			if (line.isEmpty()) continue;
-			if (isComment(line)) continue;
+			if (line.isEmpty() || isComment(line)) continue;
 			int currentLineIndent = getIndentCount(line);
 			String prevLine = lineNumber == 0 ? "" : lines.get(lineNumber-1);
 			int remove = 1;
-			while (isComment(prevLine)) {
+			while (prevLine.isEmpty() || isComment(prevLine)) {
 				int id = lineNumber-(remove++);
 				if (id == -1) {
 					prevLine = "";
@@ -40,7 +39,7 @@ public class BadIndentation extends SyntaxError {
 				}
 				prevLine = lines.get(id);
 			}
-			prevLine = prevLine.split("#")[0];
+			prevLine = removeEndLineComments(prevLine);
 			int prevLineIndent = getIndentCount(prevLine);
 			if (removeSpaces(prevLine).endsWith(":")) {
 				//expecting 2 more spaces or same or 2k less (k = 1,2,..)
@@ -55,7 +54,7 @@ public class BadIndentation extends SyntaxError {
 					continue;
 				}
 				if (prevLineIndent - currentLineIndent == 1) {
-					if (line.replace(" ", "").startsWith("-")) {
+					if (removeSpaces(line).startsWith("-")) {
 						suggestions.add("Add 1 or 3 spaces to line " +  (lineNumber+1));
 						lineNumber++;
 						continue;
