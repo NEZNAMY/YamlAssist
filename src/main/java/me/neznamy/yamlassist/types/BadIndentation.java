@@ -70,6 +70,11 @@ public class BadIndentation extends SyntaxError {
 					suggestions.add("Remove " + (currentLineIndent-prevLineIndent) + " space(s) from line " + (lineNumber+1));
 					lineNumber++;
 					continue;
+					//member of list with fewer spaces
+				} else if (currentLineIndent != prevLineIndent && removeIndent(prevLine).startsWith("-") && removeIndent(line).startsWith("-")) {
+					suggestions.add("Add " + (prevLineIndent-currentLineIndent) + " space(s) to line " + (lineNumber+1));
+					lineNumber++;
+					continue;
 				}
 			}
 			if (currentLineIndent%2 == 1) {
