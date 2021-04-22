@@ -32,4 +32,22 @@ public abstract class SyntaxError {
 		}
 		return replaced;
 	}
+	
+	/**
+	 * Returns amount of leading spaces in line of text
+	 * @param line - line to check
+	 * @return amount of leading spaces
+	 */
+	protected int getIndentCount(String line) {
+		if (line.split("#")[0].replace(" ", "").length() == 0) return 0;
+		int i = 0;
+		while (line.charAt(i) == ' ') {
+			i++;
+		}
+		//not letting tab indent give invalid suggestions
+		while (line.charAt(i) == '\t') {
+			i += 4;
+		}
+		return i;
+	}
 }

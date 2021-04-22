@@ -6,6 +6,7 @@ import java.util.List;
 import org.yaml.snakeyaml.error.YAMLException;
 
 import me.neznamy.yamlassist.SyntaxError;
+import me.neznamy.yamlassist.YamlAssist;
 
 /**
  * A missing ' or " at the beginning or ending of a value
@@ -17,6 +18,7 @@ public class MissingQuote extends SyntaxError {
 		List<String> suggestions = new ArrayList<String>();
 		for (int line = 1; line <= fileLines.size(); line++) {
 			String text = fileLines.get(line-1);
+			if (!YamlAssist.getError(InvalidLine.class).isLineValid(text)) continue;
 			if (text.startsWith("#") || text.replace(" ", "").length() == 0) continue;
 			text = removeIndent(text);
 			String suggestion = null;

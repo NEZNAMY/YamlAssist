@@ -6,6 +6,7 @@ import java.util.List;
 import org.yaml.snakeyaml.error.YAMLException;
 
 import me.neznamy.yamlassist.SyntaxError;
+import me.neznamy.yamlassist.YamlAssist;
 
 /**
  * String starting with "%", "&" or other character that is not allowed without quotes
@@ -20,7 +21,7 @@ public class QuoteWrapRequired extends SyntaxError {
 		List<String> suggestions = new ArrayList<String>();
 		for (int lineNumber = 1; lineNumber <= fileLines.size(); lineNumber++) {
 			String line = removeIndent(fileLines.get(lineNumber-1));
-			
+			if (!YamlAssist.getError(InvalidLine.class).isLineValid(line)) continue;
 			//skipping empty lines
 			if (line.startsWith("#") || line.isEmpty()) continue;
 			

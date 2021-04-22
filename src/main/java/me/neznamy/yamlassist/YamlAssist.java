@@ -16,6 +16,7 @@ import org.yaml.snakeyaml.error.YAMLException;
 
 import me.neznamy.yamlassist.types.BadIndentation;
 import me.neznamy.yamlassist.types.DoubleMapping;
+import me.neznamy.yamlassist.types.InvalidLine;
 import me.neznamy.yamlassist.types.InvalidList;
 import me.neznamy.yamlassist.types.MissingQuote;
 import me.neznamy.yamlassist.types.MissingSpaceBeforeValue;
@@ -37,6 +38,7 @@ public class YamlAssist {
 	static {
 		registerSyntaxError(new DoubleMapping());
 		registerSyntaxError(new InvalidList());
+		registerSyntaxError(new InvalidLine());
 		registerSyntaxError(new MissingQuote());
 		registerSyntaxError(new MissingSpaceBeforeValue());
 		registerSyntaxError(new QuoteWrapRequired());
@@ -92,5 +94,10 @@ public class YamlAssist {
 		}
 		br.close();
 		return list;
+	}
+	
+	@SuppressWarnings("unchecked")
+	public static <T> T getError(Class<T> clazz) {
+		return (T) registeredSyntaxErrors.get(clazz);
 	}
 }

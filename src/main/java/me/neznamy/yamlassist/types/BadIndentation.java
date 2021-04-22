@@ -82,23 +82,7 @@ public class BadIndentation extends SyntaxError {
 		return suggestions;
 	}
 	
-	/**
-	 * Returns amount of leading spaces in line of text
-	 * @param line - line to check
-	 * @return amount of leading spaces
-	 */
-	private int getIndentCount(String line) {
-		if (isComment(line)) return 0;
-		int i = 0;
-		while (line.charAt(i) == ' ') {
-			i++;
-		}
-		//not letting tab indent give invalid suggestions
-		while (line.charAt(i) == '\t') {
-			i += 4;
-		}
-		return i;
-	}
+
 	
 	/**
 	 * Return true if this line appears to be a comment only, false if not
