@@ -90,11 +90,9 @@ public abstract class SyntaxError {
 					if (quoteChar == c) insideQuotes = false;
 				}
 			}
-			if (c == '#') {
-				if (!insideQuotes && (quoteChar != 0 || (sb.length() > 0 && sb.charAt(sb.length()-1) == ' '))) {
-					while (sb.length() > 0 && sb.charAt(sb.length()-1) == ' ') sb.setLength(sb.length()-1);
-					return sb.toString();
-				}
+			if (c == '#' && !insideQuotes && (quoteChar != 0 || (sb.length() > 0 && sb.charAt(sb.length()-1) == ' '))) {
+				while (sb.length() > 0 && sb.charAt(sb.length()-1) == ' ') sb.setLength(sb.length()-1);
+				return sb.toString();
 			}
 			sb.append(c);
 		}
