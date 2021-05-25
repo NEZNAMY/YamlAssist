@@ -33,9 +33,6 @@ public class InvalidLine extends SyntaxError {
 	}
 	
 	public boolean isLineValid(String line) {
-		if (line.startsWith("'") || line.startsWith("\"")) {
-			return false;
-		}
-		return true;
+		return !line.startsWith("'") && !line.startsWith("\"");
 	}
 }
