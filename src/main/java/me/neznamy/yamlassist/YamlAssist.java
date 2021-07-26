@@ -1,11 +1,9 @@
 package me.neznamy.yamlassist;
 
-import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
-import java.io.InputStreamReader;
-import java.nio.charset.Charset;
+import java.nio.file.Files;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -59,10 +57,10 @@ public class YamlAssist {
 			if (!file.exists()) throw new IllegalStateException("File does not exist");
 			FileInputStream input = new FileInputStream(file);
 			try {
-				new Yaml().load(new InputStreamReader(input, Charset.defaultCharset()));
+				new Yaml().load(input);
 			} catch (YAMLException exception) {
 				for (SyntaxError possibleError : registeredSyntaxErrors.values()) {
-					suggestions.addAll(possibleError.getSuggestions(exception, readAllLines(file)));
+					suggestions.addAll(possibleError.getSuggestions(exception, Files.readAllLines(file.toPath())));
 				}
 			}
 			input.close();
@@ -80,22 +78,6 @@ public class YamlAssist {
 		registeredSyntaxErrors.put(error.getClass(), error);
 	}
 
-	/**
-	 * Reads all lines in file and returns them as List
-	 * @return list of lines in file
-	 * @throws IOException - if IO operation fails
-	 */
-	private static List<String> readAllLines(File file) throws IOException {
-		List<String> list = new ArrayList<String>();
-		BufferedReader br = new BufferedReader(new InputStreamReader(new FileInputStream(file), Charset.defaultCharset()));
-		String line;
-		while ((line = br.readLine()) != null) {
-			list.add(line);
-		}
-		br.close();
-		return list;
-	}
-	
 	@SuppressWarnings("unchecked")
 	public static <T> T getError(Class<T> clazz) {
 		return (T) registeredSyntaxErrors.get(clazz);
