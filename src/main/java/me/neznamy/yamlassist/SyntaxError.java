@@ -67,6 +67,17 @@ public abstract class SyntaxError {
 			value = value.substring(2);
 		} else if (value.contains(": ")) {
 			value = value.substring(value.split(": ")[0].length()+2);
+		} else {
+			for (String c : new String[] {"'", "\""}) {
+				if (value.startsWith(c)) {
+					value = value.substring(1);
+					int index = value.indexOf(c)+2;
+					if (value.length() >= index) {
+						value = value.substring(index);
+						if (!value.isEmpty()) value = value.substring(1);
+					}
+				}
+			}
 		}
 		return removeEndLineComments(value);
 	}
