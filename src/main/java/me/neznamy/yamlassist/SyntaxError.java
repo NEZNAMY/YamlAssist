@@ -43,7 +43,7 @@ public abstract class SyntaxError {
 		int index = 0;
 		int spaces = 0;
 		//not letting tab indent give invalid suggestions
-		while (line.charAt(index) == ' ' || line.charAt(index) == '\t') {
+		while (line.length() > index && (line.charAt(index) == ' ' || line.charAt(index) == '\t')) {
 			if (line.charAt(index) == ' ') {
 				index++;
 				spaces++;
