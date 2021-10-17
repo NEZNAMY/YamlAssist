@@ -29,7 +29,13 @@ public class MissingSpaceBeforeValue extends SyntaxError {
 			
 			//simple values
 			if (!line.startsWith("- ") && line.contains(":") && !line.contains(": ") && !line.endsWith(":")) {
-				suggestions.add("Add a space after the \":\" at line " + lineNumber + ".");
+				if (fileLines.size() == lineNumber) continue;
+				String nextLine = fileLines.get(lineNumber);
+				if (getIndentCount(nextLine) - getIndentCount(fileLines.get(lineNumber-1)) == 2) {
+					suggestions.add("Remove the \"" + line.substring(line.indexOf(':')+1) + "\" from the end of line " + lineNumber);
+				} else {
+					suggestions.add("Add a space after the \":\" at line " + lineNumber + ".");
+				}
 				continue;
 			}
 			
