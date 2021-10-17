@@ -19,6 +19,7 @@ public class MissingQuote extends SyntaxError {
 		for (int lineNumber = 1; lineNumber <= fileLines.size(); lineNumber++) {
 			String text = fileLines.get(lineNumber-1);
 			if (!YamlAssist.getError(InvalidLine.class).isLineValid(text)) continue;
+			if (removeIndent(text).startsWith("#")) continue;
 			String suggestion = checkElement(getValue(text), lineNumber);
 			if (suggestion != null) suggestions.add(suggestion);
 		}
