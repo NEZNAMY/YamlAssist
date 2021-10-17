@@ -26,8 +26,9 @@ public class BadIndentation extends SyntaxError {
 		List<String> suggestions = new ArrayList<String>();
 		for (int lineNumber = 0; lineNumber < lines.size(); lineNumber++) {
 			String line = lines.get(lineNumber);
+			if (line.isEmpty()) continue;
 			line = line.split("#")[0];
-			if (line.isEmpty() || isComment(line)) continue;
+			if (isComment(line)) continue;
 			int currentLineIndent = getIndentCount(line);
 			String prevLine = lineNumber == 0 ? "" : lines.get(lineNumber-1);
 			int remove = 1;
