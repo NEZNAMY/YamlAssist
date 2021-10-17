@@ -19,7 +19,7 @@ public class DoubleMapping extends SyntaxError {
 		if (arr.length == 1) return suggestions;
 		int line = Integer.parseInt(arr[1].split(",")[0]);
 		String text = fileLines.get(line-1).split("#")[0];
-		if (exception.getMessage().contains("mapping values are not allowed here") && text.endsWith(":")) {
+		if (exception.getMessage().contains("mapping values are not allowed here") && text.endsWith(":") && getIndentCount(text) %2 == 0) {
 			suggestions.add("Remove the last : from line " + line + ".");
 		}
 		return suggestions;
