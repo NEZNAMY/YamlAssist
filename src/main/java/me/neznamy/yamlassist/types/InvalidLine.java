@@ -18,7 +18,7 @@ public class InvalidLine extends SyntaxError {
 		for (int lineNumber = 1; lineNumber <= fileLines.size(); lineNumber++) {
 			String line = removeIndent(fileLines.get(lineNumber-1));
 			String previousLine = lineNumber == 1 ? "" : removeIndent(fileLines.get(lineNumber-2));
-			if (previousLine.startsWith("-") && !line.startsWith("-") && line.startsWith("'") || line.startsWith("\"")) {
+			if (previousLine.startsWith("-") && !line.startsWith("-") && (line.startsWith("'") || line.startsWith("\""))) {
 				//member of list no longer starting with "-"
 				String value = "- ";
 				for (int i=0; i<getIndentCount(line); i++) {
