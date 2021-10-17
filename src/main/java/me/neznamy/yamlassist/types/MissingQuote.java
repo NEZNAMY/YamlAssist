@@ -51,9 +51,18 @@ public class MissingQuote extends SyntaxError {
 	 */
 	private String checkElement(String value, int lineNumber, String c) {
 		if (value.equals(c)) {
-			return "Add " + c + " at the end of line " + lineNumber;
+			return "Add " + c + " at the end of line " + lineNumber + " to finish empty value";
 		}
 		if (value.startsWith(c) && !value.endsWith(c)) {
+			if (getCharCount(value, c.charAt(0)) == 2) {
+				int i;
+				for (i = value.length()-2; i>0; i--) {
+					if (value.charAt(i) == c.charAt(0)) break;
+				}
+				if (i>0) {
+					return "Remove extra text \"" + value.substring(i+1) + "\" after ending " + c + " in line " + lineNumber;
+				}
+			}
 			return "Add " + c + " at the end of line " + lineNumber;
 		}
 		if (value.endsWith(c) && !value.startsWith(c)) {
@@ -63,5 +72,13 @@ public class MissingQuote extends SyntaxError {
 			return "Remove one " + c + " from the end of line " + lineNumber;
 		}
 		return null;
+	}
+	
+	private int getCharCount(String string, char c) {
+		int count = 0;
+		for (int i=0; i<string.length(); i++) {
+			if (string.charAt(i) == c) count++;
+		}
+		return count;
 	}
 }
