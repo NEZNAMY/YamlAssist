@@ -15,7 +15,7 @@ public class MissingQuote extends SyntaxError {
 
 	@Override
 	public List<String> getSuggestions(YAMLException exception, List<String> fileLines) {
-		List<String> suggestions = new ArrayList<String>();
+		List<String> suggestions = new ArrayList<>();
 		for (int lineNumber = 1; lineNumber <= fileLines.size(); lineNumber++) {
 			String text = fileLines.get(lineNumber-1);
 			if (!YamlAssist.getError(InvalidLine.class).isLineValid(text)) continue;
@@ -33,7 +33,7 @@ public class MissingQuote extends SyntaxError {
 	 * @return error message or null if nothing was found
 	 */
 	private String checkElement(String value, int lineNumber) {
-		String result = null;
+		String result;
 		if ((result = checkElement(value, lineNumber, "'")) != null) {
 			return result;
 		}

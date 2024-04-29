@@ -14,7 +14,7 @@ public class MissingSpaceBeforeValue extends SyntaxError {
 
 	@Override
 	public List<String> getSuggestions(YAMLException exception, List<String> fileLines) {
-		List<String> suggestions = new ArrayList<String>();
+		List<String> suggestions = new ArrayList<>();
 		for (int lineNumber=1; lineNumber <= fileLines.size(); lineNumber++) {
 			String line = removeIndent(fileLines.get(lineNumber-1));
 			
@@ -42,8 +42,7 @@ public class MissingSpaceBeforeValue extends SyntaxError {
 			//completely invalid line
 			if (!line.contains(":") && !line.contains("-")) {
 				suggestions.add("Remove line " + lineNumber + " or add ':' at the end");
-				continue;
-			}
+            }
 		}
 		return suggestions;
 	}

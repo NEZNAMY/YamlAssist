@@ -39,7 +39,7 @@ public abstract class SyntaxError {
 	 * @return amount of leading spaces
 	 */
 	protected int getIndentCount(String line) {
-		if (line.split("#")[0].replace(" ", "").length() == 0) return 0;
+		if (line.split("#")[0].replace(" ", "").isEmpty()) return 0;
 		int index = 0;
 		int spaces = 0;
 		//not letting tab indent give invalid suggestions

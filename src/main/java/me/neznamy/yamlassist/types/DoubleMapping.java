@@ -14,7 +14,7 @@ public class DoubleMapping extends SyntaxError {
 
 	@Override
 	public List<String> getSuggestions(YAMLException exception, List<String> fileLines) {
-		List<String> suggestions = new ArrayList<String>();
+		List<String> suggestions = new ArrayList<>();
 		String[] arr = exception.getMessage().split(", line ");
 		if (arr.length == 1) return suggestions;
 		int line = Integer.parseInt(arr[1].split(",")[0]);

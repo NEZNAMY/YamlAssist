@@ -14,7 +14,7 @@ public class InvalidLine extends SyntaxError {
 
 	@Override
 	public List<String> getSuggestions(YAMLException exception, List<String> fileLines) {
-		List<String> suggestions = new ArrayList<String>();
+		List<String> suggestions = new ArrayList<>();
 		for (int lineNumber = 1; lineNumber <= fileLines.size(); lineNumber++) {
 			String line = removeIndent(fileLines.get(lineNumber-1));
 			String previousLine = lineNumber == 1 ? "" : removeIndent(fileLines.get(lineNumber-2));

@@ -28,11 +28,8 @@ import me.neznamy.yamlassist.types.UnknownEscape;
 public class YamlAssist {
 
 	//registered error checkers
-	private static Map<Class<? extends SyntaxError>, SyntaxError> registeredSyntaxErrors = new HashMap<Class<? extends SyntaxError>, SyntaxError>();
+	private static final Map<Class<? extends SyntaxError>, SyntaxError> registeredSyntaxErrors = new HashMap<>();
 
-	/**
-	 * Registers predefined checkers
-	 */
 	static {
 		registerSyntaxError(new DoubleMapping());
 		registerSyntaxError(new InvalidList());
@@ -51,7 +48,7 @@ public class YamlAssist {
 	 * @return List of fix suggestions
 	 */
 	public static List<String> getSuggestions(File file) {
-		List<String> suggestions = new ArrayList<String>();
+		List<String> suggestions = new ArrayList<>();
 		try {
 			if (file == null) throw new IllegalArgumentException("File cannot be null");
 			if (!file.exists()) throw new IllegalStateException("File does not exist");

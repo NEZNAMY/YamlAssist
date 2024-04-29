@@ -13,11 +13,11 @@ import me.neznamy.yamlassist.SyntaxError;
 public class UnknownEscape extends SyntaxError {
 
 	//list of valid characters to be escaped
-	private char[] validEscapedCharacters = new char[] {'\\', 'b', 'f', 'n', 'r', 't', 'u', '"'};
+	private final char[] validEscapedCharacters = new char[] {'\\', 'b', 'f', 'n', 'r', 't', 'u', '"'};
 	
 	@Override
 	public List<String> getSuggestions(YAMLException exception, List<String> fileLines) {
-		List<String> suggestions = new ArrayList<String>();
+		List<String> suggestions = new ArrayList<>();
 		for (int i=1; i <= fileLines.size(); i++) {
 			String line = fileLines.get(i-1);
 			for (int j=0; j<line.length(); j++) {

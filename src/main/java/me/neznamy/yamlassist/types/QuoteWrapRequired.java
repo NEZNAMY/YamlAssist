@@ -14,11 +14,11 @@ import me.neznamy.yamlassist.YamlAssist;
 public class QuoteWrapRequired extends SyntaxError {
 
 	//list of characters that cannot start a value (quotes are required)
-	private char[] invalidStartCharacters = {'\0', '%', '-', '.', '[', '{', ']', '}', ',', '?', ':', '*', '&', '!', '|', '>'};
-			
+	private final char[] invalidStartCharacters = {'\0', '%', '-', '.', '[', '{', ']', '}', ',', '?', ':', '*', '&', '!', '|', '>'};
+
 	@Override
 	public List<String> getSuggestions(YAMLException exception, List<String> fileLines) {
-		List<String> suggestions = new ArrayList<String>();
+		List<String> suggestions = new ArrayList<>();
 		for (int lineNumber = 1; lineNumber <= fileLines.size(); lineNumber++) {
 			String line = removeIndent(fileLines.get(lineNumber-1));
 			if (!YamlAssist.getError(InvalidLine.class).isLineValid(line)) continue;

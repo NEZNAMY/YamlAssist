@@ -11,10 +11,10 @@ import me.neznamy.yamlassist.SyntaxError;
  * Using the TAB key instead of 4 spaces to indent
  */
 public class TABIndent extends SyntaxError {
-	
+
 	@Override
 	public List<String> getSuggestions(YAMLException exception, List<String> fileLines) {
-		List<String> suggestions = new ArrayList<String>();
+		List<String> suggestions = new ArrayList<>();
 		for (int i=1; i <= fileLines.size(); i++) {
 			String line = fileLines.get(i-1);
 			if (line.contains("\t")) {

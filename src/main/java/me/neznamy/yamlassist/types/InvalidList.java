@@ -8,13 +8,13 @@ import org.yaml.snakeyaml.error.YAMLException;
 import me.neznamy.yamlassist.SyntaxError;
 
 /**
- * Some kind of an invalid list, such as not specifying key or specifying another value after the : in key
+ * Some kind of invalid list, such as not specifying key or specifying another value after the : in key
  */
 public class InvalidList extends SyntaxError {
 
 	@Override
 	public List<String> getSuggestions(YAMLException exception, List<String> fileLines) {
-		List<String> suggestions = new ArrayList<String>();
+		List<String> suggestions = new ArrayList<>();
 		if (exception.getMessage().contains("expected <block end>, but found '-'")) {
 			int line1 = Integer.parseInt(exception.getMessage().split(", line ")[1].split(",")[0]);
 			int line2 = Integer.parseInt(exception.getMessage().split(", line ")[2].split(",")[0]);

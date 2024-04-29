@@ -23,7 +23,7 @@ public class BadIndentation extends SyntaxError {
 	 * @return - list of fix suggestions
 	 */
 	private List<String> checkForIndent(List<String> lines) {
-		List<String> suggestions = new ArrayList<String>();
+		List<String> suggestions = new ArrayList<>();
 		for (int lineNumber = 0; lineNumber < lines.size(); lineNumber++) {
 			String line = lines.get(lineNumber);
 			if (line.isEmpty()) continue;
@@ -59,14 +59,12 @@ public class BadIndentation extends SyntaxError {
 				if (prevLineIndent - currentLineIndent == 1) {
 					if (removeSpaces(line).startsWith("-")) {
 						suggestions.add("Add 1 or 3 spaces to line " +  (lineNumber+1));
-						lineNumber++;
-						continue;
-					} else {
+                    } else {
 						suggestions.add("Remove 1 space from line " + (lineNumber+1));
-						lineNumber++;
-						continue;
-					}
-				}
+                    }
+                    lineNumber++;
+                    continue;
+                }
 			} else {
 				//expecting same indent count or 2k less (k = 1,2,..)
 				if (currentLineIndent > prevLineIndent) {
@@ -83,8 +81,7 @@ public class BadIndentation extends SyntaxError {
 			if (currentLineIndent%2 == 1) {
 				suggestions.add("Add or remove one space at line " + (lineNumber+1));
 				lineNumber++;
-				continue;
-			}
+            }
 		}
 		return suggestions;
 	}
@@ -99,9 +96,9 @@ public class BadIndentation extends SyntaxError {
 	/**
 	 * Return true if this line appears to be a comment only, false if not
 	 * @param line - line of file
-	 * @return true if comment, false otherwise
+	 * @return true if line is only a comment, false otherwise
 	 */
 	private boolean isComment(String line) {
-		return line.split("#")[0].replace(" ", "").length() == 0;
+		return line.split("#")[0].replace(" ", "").isEmpty();
 	}
 }
