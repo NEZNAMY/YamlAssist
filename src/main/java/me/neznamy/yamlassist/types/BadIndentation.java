@@ -27,7 +27,9 @@ public class BadIndentation extends SyntaxError {
 		for (int lineNumber = 0; lineNumber < lines.size(); lineNumber++) {
 			String line = lines.get(lineNumber);
 			if (line.isEmpty()) continue;
-			line = line.split("#")[0];
+			if (line.contains("#")) {
+				line = line.split("#")[0];
+			}
 			if (isComment(line)) continue;
 			int currentLineIndent = getIndentCount(line);
 			String prevLine = lineNumber == 0 ? "" : lines.get(lineNumber-1);
