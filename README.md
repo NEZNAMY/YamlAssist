@@ -15,7 +15,7 @@
   <dependency>
     <groupId>com.github.NEZNAMY</groupId>
     <artifactId>YamlAssist</artifactId>
-    <version>1.0.6</version>
+    <version>1.0.7</version>
   </dependency>
 </dependencies>
  ```
