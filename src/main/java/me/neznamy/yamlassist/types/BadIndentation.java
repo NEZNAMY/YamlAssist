@@ -26,10 +26,6 @@ public class BadIndentation extends SyntaxError {
 		List<String> suggestions = new ArrayList<>();
 		for (int lineNumber = 0; lineNumber < lines.size(); lineNumber++) {
 			String line = lines.get(lineNumber);
-			if (line.isEmpty()) continue;
-			if (line.contains("#")) {
-				line = line.split("#")[0];
-			}
 			if (isComment(line)) continue;
 			int currentLineIndent = getIndentCount(line);
 			String prevLine = lineNumber == 0 ? "" : lines.get(lineNumber-1);
@@ -99,6 +95,8 @@ public class BadIndentation extends SyntaxError {
 	 * @return true if line is only a comment, false otherwise
 	 */
 	private boolean isComment(String line) {
-		return line.split("#")[0].replace(" ", "").isEmpty();
+		String[] array = line.split("#");
+		if (array.length == 0) return true;
+		return array[0].replace(" ", "").isEmpty();
 	}
 }
