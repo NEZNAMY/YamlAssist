@@ -14,21 +14,16 @@ repositories {
 
 dependencies {
     compileOnlyApi("org.yaml", "snakeyaml", "1.27")
-}
 
-publishing {
-    repositories {
-        maven {
-            name = "krypton"
-            url = uri("https://repo.kryptonmc.org/releases")
-            credentials(PasswordCredentials::class)
-        }
-    }
-    publications.create<MavenPublication>("mavenJava") {
-        from(components["java"])
-    }
+    testImplementation("org.yaml", "snakeyaml", "1.27")
+    testImplementation("org.junit.jupiter:junit-jupiter:5.10.0")
+    testRuntimeOnly("org.junit.platform:junit-platform-launcher")
 }
 
 tasks.compileJava {
     options.encoding = "UTF-8"
+}
+
+tasks.test {
+    useJUnitPlatform()
 }

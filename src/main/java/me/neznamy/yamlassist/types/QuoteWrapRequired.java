@@ -13,7 +13,7 @@ import me.neznamy.yamlassist.YamlAssist;
  */
 public class QuoteWrapRequired extends SyntaxError {
 
-	//list of characters that cannot start a value (quotes are required)
+	/** List of characters that cannot start a value (quotes are required) */
 	private final char[] invalidStartCharacters = {'\0', '%', '-', '.', '[', '{', ']', '}', ',', '?', ':', '*', '&', '!', '|', '>'};
 
 	@Override
@@ -24,11 +24,11 @@ public class QuoteWrapRequired extends SyntaxError {
 			if (!YamlAssist.getError(InvalidLine.class).isLineValid(line)) continue;
 			//skipping empty lines
 			if (line.startsWith("#") || line.isEmpty()) continue;
-			
+
 			String value = getValue(line);
-			if (value.equals("{}") || value.equals("[]")) continue;
+			if (value.isEmpty() || value.equals("{}") || value.equals("[]")) continue;
 			for (char invalid : invalidStartCharacters) {
-				if (value.startsWith(invalid+"")) {
+				if (value.charAt(0) == invalid) {
 					suggestions.add("Wrap value in line " + lineNumber + " into quotes.");
 				}
 			}

@@ -62,10 +62,16 @@ public abstract class SyntaxError {
 	 * @return map value of the line
 	 */
 	protected String getValue(String line) {
+		if (line.trim().endsWith(":")) return "";
 		String value = removeIndent(line);
 		if (value.startsWith("- ")) {
+			// List entry
 			value = value.substring(2);
+		} else if (value.startsWith("-")) {
+			// List entry (broken syntax)
+			value = value.substring(1);
 		} else if (value.contains(": ")) {
+			// Simple value
 			value = value.substring(value.split(": ")[0].length()+2);
 		} else {
 			for (String c : new String[] {"'", "\""}) {

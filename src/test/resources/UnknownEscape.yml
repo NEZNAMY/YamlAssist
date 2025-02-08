@@ -1,0 +1,5 @@
+list:
+  - "\x"
+  - \\
+  - "\" # TODO identify this properly
+  - "\n"
